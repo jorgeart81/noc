@@ -28,7 +28,7 @@ export class FileSystemDatasource implements LogDatasource {
   }
 
   async saveLog(newLog: LogEntity): Promise<void> {
-    const logAsJson = `${JSON.stringify(newLog)}/n`;
+    const logAsJson = `${JSON.stringify(newLog)}\n`;
 
     fs.appendFileSync(this.allLogsPath, logAsJson);
 
