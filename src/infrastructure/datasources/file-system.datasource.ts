@@ -3,11 +3,18 @@ import fs from 'fs';
 import { LogDatasource } from '../../domain/datasources';
 import { LogEntity, LogServerityLevel } from '../../domain/entities';
 
+export enum LogPath {
+  logPath = 'logs/',
+  allLogsPath = 'logs/logs-low.log',
+  mediumLogsPath = 'logs/logs-medium.log',
+  highLogsPath = 'logs/logs-high.log',
+}
+
 export class FileSystemDatasource implements LogDatasource {
-  private readonly logPath = 'logs/';
-  private readonly allLogsPath = 'logs/logs-low.log';
-  private readonly mediumLogsPath = 'logs/logs-medium.log';
-  private readonly highLogsPath = 'logs/logs-high.log';
+  private readonly logPath = LogPath.logPath;
+  private readonly allLogsPath = LogPath.allLogsPath;
+  private readonly mediumLogsPath = LogPath.mediumLogsPath;
+  private readonly highLogsPath = LogPath.highLogsPath;
 
   constructor() {
     this.createLogsFiles();

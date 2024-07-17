@@ -8,7 +8,7 @@ type SuccessCallback = () => void;
 type ErrorCallback = (error: string) => void;
 
 export class CheckService implements CheckServiceUseCase {
-  private currentOrigin = 'check-service';
+  private readonly currentOrigin = 'check-service';
 
   constructor(
     private readonly logRepository: LogRepository,
