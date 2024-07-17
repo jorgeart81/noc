@@ -8,7 +8,7 @@ const logRepository = new LogRepositoryImpl(logDatasource);
 
 export class Server {
   static start() {
-    console.log('Server started...');
+    console.log('Server started...', process.env.MAILER_EMAIL);
 
     CronService.createJob('*/5 * * * * *', () => {
       const url = 'https://google.com';
