@@ -4,10 +4,17 @@ import { LogRepositoryImpl } from '../infrastructure/repositories';
 import { CronService } from './cron/cron.service';
 import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
+import { envs } from '../config/plugins';
 
 const logDatasource = new FileSystemDatasource();
 const logRepository = new LogRepositoryImpl(logDatasource);
-const emailService = new EmailService();
+const emailService = new EmailService({
+  host: envs.MAIL_HOST,
+  port: envs.MAIL_PORT,
+  secure: false,
+  user: envs.MAIL_USERNAME,
+  pass: envs.MAIL_PASSWORD,
+});
 
 export class Server {
   static start() {

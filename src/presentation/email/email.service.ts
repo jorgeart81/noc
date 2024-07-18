@@ -8,16 +8,26 @@ import type {
   SendMailOptions,
 } from '../../domain/interfaces';
 
+interface EmailServiceOptions {
+  host: string;
+  port: number;
+  secure: boolean;
+  user: string;
+  pass: string;
+}
+
 export class EmailService implements IEmailService {
-  private transporter = createTransport({
-    host: envs.MAIL_HOST,
-    port: envs.MAIL_PORT,
-    secure: false,
-    auth: {
-      user: envs.MAIL_USERNAME,
-      pass: envs.MAIL_PASSWORD,
-    },
-  });
+  private transporter;
+
+  constructor(readonly emailServiceOptions: EmailServiceOptions) {
+    const { host, port, secure, user, pass } = emailServiceOptions;
+    this.transporter = createTransport({
+      host,
+      port,
+      secure,
+      auth: { user, pass },
+    });
+  }
 
   async sendEmail(mailOptions: SendMailOptions): Promise<boolean> {
     const { to, subject, htmlBody, attachements = [] } = mailOptions;
